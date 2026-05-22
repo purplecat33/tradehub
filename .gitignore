@@ -1,0 +1,28 @@
+# VS Code
+.vscode/
+
+# Zip files
+*.zip
+
+# React frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+
+# Spring Boot backend
+tradehub/target/
+tradehub/*.class
+
+# Local config
+.env
+*.env
+tradehub/src/main/resources/application-local.properties
+tradehub/src/main/resources/application-secret.properties
+
+# IDE
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
