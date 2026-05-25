@@ -16,6 +16,7 @@ function ProductListPage({loginUser}) {
         title: "",
         price: "",
         description: "",
+        productCondition: "GOOD",
     });
 
     const getStatusText = (status) => {
@@ -37,6 +38,26 @@ function ProductListPage({loginUser}) {
 
         return status;
     };
+
+    const getConditionText = (productCondition) => {
+
+        if (productCondition === "GOOD") {
+
+            return "좋음";
+        }
+
+        if (productCondition === "NORMAL") {
+
+            return "보통";
+        }
+
+        if (productCondition === "BAD") {
+
+            return "나쁨";
+        }
+
+        return productCondition || "-";
+    }
 
     const sortProducts = (productList) => {
         const sortedProducts = [...productList];
@@ -145,6 +166,7 @@ function ProductListPage({loginUser}) {
             formData.append("title", form.title);
             formData.append("price", Number(form.price));
             formData.append("description", form.description);
+            formData.append("productCondition", form.productCondition);
             formData.append("userId", loginUser.id);
 
             if (imageFile) {
@@ -164,6 +186,7 @@ function ProductListPage({loginUser}) {
                 title:"",
                 price:"",
                 description:"",
+                productCondition:"GOOD",
             });
 
             setImageFile(null);
@@ -261,6 +284,19 @@ function ProductListPage({loginUser}) {
                         onChange = {handleChange}
                     />
 
+                    <div className="form-group">
+                        <label>상품 상태</label>
+                        <select
+                            name="productCondition"
+                            value={form.productCondition}
+                            onChange={handleChange}
+                        >
+                            <option value="GOOD">좋음</option>
+                            <option value="NORMAL">보통</option>
+                            <option value="BAD">나쁨</option>
+                        </select>
+                    </div>
+
                     <input
                         type="file"
                         accept="image/*"
@@ -348,6 +384,10 @@ function ProductListPage({loginUser}) {
                         <span className={`status-badge ${product.status.toLowerCase()}`}>
                             {getStatusText(product.status)}
                         </span>
+
+                        <p className="product-condition">
+                            상품 상태 : {getConditionText(product.productCondition)}
+                        </p>
 
                         <p className="product-description">
                             {product.description}

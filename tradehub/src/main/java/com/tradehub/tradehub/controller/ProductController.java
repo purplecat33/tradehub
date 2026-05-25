@@ -34,11 +34,12 @@ public class ProductController {
         @RequestParam("price") Integer price,
         @RequestParam("description") String description,
         @RequestParam("userId") Long userId,
+        @RequestParam(value = "productCondition", required = false) String productCondition,
         @RequestParam(value = "image", required = false) MultipartFile image
     ) {
 
         try {
-            Product product = productService.createProduct(title, price, description, userId, image);
+            Product product = productService.createProduct(title, price, description, productCondition, userId, image);
 
             return ResponseEntity.ok(product);
 
@@ -75,10 +76,18 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateProduct(@PathVariable Long id, @RequestParam("title") String title, @RequestParam("price") Integer price, @RequestParam("description") String description, @RequestParam(value = "status", required = false) String status, @RequestParam("loginUserId") Long loginUserId, @RequestParam(value = "image", required = false) MultipartFile image) {
+    public ResponseEntity<?> updateProduct(
+        @PathVariable Long id,
+        @RequestParam("title") String title,
+        @RequestParam("price") Integer price,
+        @RequestParam("description") String description,
+        @RequestParam(value = "status", required = false) String status,
+        @RequestParam(value = "productCondition", required = false) String productCondition,
+        @RequestParam("loginUserId") Long loginUserId,
+        @RequestParam(value = "image", required = false) MultipartFile image) {
 
         try {
-            Product product = productService.updateProduct(id, title, price, description, status, loginUserId, image);
+            Product product = productService.updateProduct(id, title, price, description, status, productCondition, loginUserId, image);
 
             return ResponseEntity.ok(product);
 

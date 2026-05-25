@@ -52,12 +52,20 @@ public class Product {
     @Column(nullable = false, length = 20)
     private ProductStatus status;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "product_condition, nullable = false, length = 20")
+    private ProductCondition productCondition;
+
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now();
 
         if (this.status == null) {
             this.status = ProductStatus.AVAILABLE;
+        }
+
+        if (this.productCondition == null) {
+            this.productCondition = ProductCondition.GOOD;
         }
     }
 }

@@ -29,6 +29,26 @@ function ProductDetailPage({loginUser}) {
         return status;
     };
 
+    const getConditionText = (productCondition) => {
+
+        if (productCondition === "GOOD") {
+
+            return "좋음";
+        }
+
+        if (productCondition === "NORMAL") {
+
+            return "보통";
+        }
+
+        if (productCondition === "BAD") {
+
+            return "나쁨";
+        }
+
+        return productCondition || "-";
+    };
+
     const fetchProduct = async () => {
 
         try {
@@ -215,6 +235,10 @@ function ProductDetailPage({loginUser}) {
                     <span className={`status-badge ${product.status.toLowerCase()}`}>
                         {getStatusText(product.status)}
                     </span>
+
+                    <p className="product-condition">
+                        <strong>상품 상태</strong>: {getConditionText(product.productCondition)}
+                    </p>
 
                     <p>{product.description}</p>
                 </div>

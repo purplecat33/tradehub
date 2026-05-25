@@ -12,7 +12,7 @@ function ProductEditPage({ loginUser }) {
         title : "",
         price : "",
         description : "",
-        status:"좋음",
+        productCondition: "GOOD",
     });
 
     const [image, setImage] = useState(null);
@@ -29,7 +29,7 @@ function ProductEditPage({ loginUser }) {
                 title : product.title,
                 price : product.price,
                 description : product.description,
-                status: product.status || "좋음",
+                productCondition: product.productCondition || "GOOD",
             });
 
             setCurrentImageUrl(product.imageUrl);
@@ -93,6 +93,7 @@ function ProductEditPage({ loginUser }) {
             formData.append("title", form.title);
             formData.append("price", Number(form.price));
             formData.append("description", form.description);
+            formData.append("productCondition", form.productCondition);
             formData.append("loginUserId", loginUser.id);
 
             if (image) {
@@ -103,6 +104,8 @@ function ProductEditPage({ loginUser }) {
                 headers: {
                     "Content-Type" : "multipart/form-data",
                 },
+
+                withCredentials: true,
             });
             
 
@@ -135,87 +138,92 @@ function ProductEditPage({ loginUser }) {
     };
 
     return (
-        <div>
-            <h1>상품 수정</h1>
+        <div className="page-container">
+            <h1 className="page-title">상품 수정</h1>
 
-            <form onSubmit = {handleSubmit}>
-                <div>
-                    <input
-                        type="text"
-                        name="title"
-                        placeholder="상품명"
-                        value={form.title}
-                        onChange={handleChange}
-                    />
-                </div>
+            <div className="form-card">
+                <form onSubmit={handleSubmit} className="product-form">
+                    <div className="form-group">
+                        <label>상품명</label>
+                        <input
+                            type="text"
+                            name="title"
+                            placeholder="상품명"
+                            value={form.title}
+                            onChange={handleChange}
+                        />
+                    </div>
 
-                <div>
-                    <input
-                        type="number"
-                        name="price"
-                        placeholder="가격"
-                        value={form.price}
-                        onChange={handleChange}
-                    />
-                </div>
+                    <div className="form-group">
+                        <label>가격</label>
+                        <input
+                            type="number"
+                            name="price"
+                            placeholder="가격"
+                            value={form.price}
+                            onChange={handleChange}
+                        />
+                    </div>
 
-                <div>
-                    <textarea
-                        name="description"
-                        placeholder="상품 설명"
-                        value={form.description}
-                        onChange={handleChange}
-                    />
-                </div>
+                    <div className="form-group">
+                        <label>상품 설명</label>
+                        <textarea
+                            name="description"
+                            placeholder="상품 설명"
+                            value={form.description}
+                            onChange={handleChange}
+                        />
+                    </div>
 
-                <div>
-                    <select
-                        name="status"
-                        value={form.status}
-                        onChange={handleChange}
-                    >
-                        <option value="좋음">좋음</option>
-                        <option value="보통">보통</option>
-                        <option value="나쁨">나쁨</option>
-                    </select>
-                </div>
+                    <div className="form-group">
+                        <label>상품 상태</label>
+                        <select
+                            name="productCondition"
+                            value={form.productCondition}
+                            onChange={handleChange}
+                        >
+                            <option value="GOOD">좋음</option>
+                            <option value="NORMAL">보통</option>
+                            <option value="BAD">나쁨</option>
+                        </select>
+                    </div>
 
-                
-                <div style={{marginTop: "10px"}}>
-                    <p>{previewUrl ? "선택한 이미지 미리보기" : "현재 이미지"}</p>
-                    <img
-                        src={
-                            previewUrl
-                                ? previewUrl
-                                : currentImageUrl
-                                ? `${BASE_URL}/images/${currentImageUrl}`
-                                : "/no-image.png"
-                        }
-                        alt="현재 상품 이미지"
-                        style={{
-                            width: "200px",
-                            height: "200px",
-                            objectFit: "cover",
-                            borderRadius: "10px",
-                        }}
-                    />
-                </div>
-                
+                    <div className="image-preview-area">
+                        <p>{previewUrl ? "선택한 이미지 미리보기" : "현재 이미지"}</p>
 
-                <div>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageChange}
-                    />
-                </div>
+                        <img
+                            src={
+                                previewUrl
+                                    ? previewUrl
+                                    : currentImageUrl
+                                    ? `${BASE_URL}/images/${currentImageUrl}`
+                                    : "/no-image.png"
+                            }
+                            alt="현재 상품 이미지"
+                            className="edit-preview-image"
+                        />
+                    </div>
 
-                <button type="button" onClick={() => navigate(-1)}>
-                    취소
-                </button>
+                    <div className="form-group">
+                        <label>이미지 변경</label>
+                        <input
+                            type="file"
+                            accept="image/"
+                            onChange={handleChange}
+                        />
+                    </div>
 
-                <button type = "submit">수정 완료</button>
-            </form>
+                    <div className="form-actions">
+                        <button type="button" className="secondary" onClick={() => navigate(-1)}>
+                            취소
+                        </button>
+
+                        <button type="submit">
+                            수정 완료
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }

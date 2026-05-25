@@ -11,9 +11,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.tradehub.tradehub.entity.Product;
 import com.tradehub.tradehub.entity.ProductStatus;
 import com.tradehub.tradehub.entity.User;
+import com.tradehub.tradehub.entity.ProductCondition;
 import com.tradehub.tradehub.repository.ProductRepository;
 import com.tradehub.tradehub.repository.UserRepository;
 import com.tradehub.tradehub.repository.WishlistRepository;
+
 
 @Service
 public class ProductService {
@@ -34,6 +36,7 @@ public class ProductService {
         String title,
         Integer price,
         String description,
+        String productCondition,
         Long userId,
         MultipartFile image
     ) {
@@ -45,6 +48,15 @@ public class ProductService {
         product.setPrice(price);
         product.setDescription(description);
         product.setStatus(ProductStatus.AVAILABLE);
+        product.setUser(user);
+
+        if (productCondition != null && !productCondition.isEmpty()) {
+            product.setProductCondition(ProductCondition.valueOf(productCondition));
+
+        } else {
+            product.setProductCondition(ProductCondition.GOOD);
+        }
+
         product.setUser(user);
 
         if (image != null && !image.isEmpty()) {
@@ -72,7 +84,7 @@ public class ProductService {
         return productRepository.findByTitleContaining(keyword);
     }
 
-    public Product updateProduct(Long id, String title, Integer price, String description, String status, Long loginUserId, MultipartFile image) {
+    public Product updateProduct(Long id, String title, Integer price, String description, String status, String productCondition, Long loginUserId, MultipartFile image) {
         Product product = productRepository.findById(id)
                                 .orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다." + id));
 
@@ -86,6 +98,10 @@ public class ProductService {
 
         if (status != null && !status.isEmpty()) {
             product.setStatus(ProductStatus.valueOf(status));
+        }
+
+        if (productCondition != null && !productCondition.isEmpty()) {
+            product.setProductCondition(ProductCondition.valueOf(productCondition));
         }
 
         if (image != null && !image.isEmpty()) {
