@@ -1,0 +1,114 @@
+.home-page {
+    min-height: 100vh;
+    background-color: #ffffff;
+}
+
+.home-navbar {
+    width: 100%;
+    height: 80px;
+    padding: 0 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    box-sizing: border-box;
+}
+
+.hone-logo {
+    color: #ffd43b;
+    font-size: 30px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.home-menu {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.home-menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.home-menu a:hover {
+    color: #ffd43b;
+}
+
+.home-hero {
+    height: 100%;
+    min-height: 100vh;
+    
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.58)),
+        url("/template/assets/img/header-bg.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.home-hero-content {
+    padding-top: 80px;
+}
+
+.home-hero-subtitle {
+    font-size: 28px;
+    font-style: italic;
+    margin-bottom: 22px;
+}
+
+.home-hero h1 {
+    font-size: 64px;
+    line-height: 1.2;
+    font-weight: 800;
+    margin-bottom: 24px;
+}
+
+.home-hero-description {
+    font-size: 18px;
+    margin-bottom: 36px;
+    color: #f1f1f1;
+}
+
+.home-hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.home-hero-button {
+    display: inline-block;
+    padding: 18px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.home-hero-button.primary {
+    background-color: #ffd43b;
+    color: #222;
+}
+
+.home-hero-button.primary:hover {
+    background-color: #fab005;
+}
+
+.home-hero-button.secondary {
+    background-color: white;
+    color: #222;
+}
+
+.home-hero-button.secondary:hover {
+    background-color: #f1f3f5;
+}

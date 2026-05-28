@@ -1,9 +1,10 @@
-import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 import "./App.css";
 
+import HomePage from "./pages/HomePage";
 import ProductListPage from "./pages/ProductListPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import ProductEditPage from "./pages/ProductEditPage";
@@ -13,6 +14,7 @@ import SentTradePage from "./pages/SentTradePage";
 import ReceivedTradePage from "./pages/ReceivedTradePage";
 import SignupPage from "./pages/SignupPage";
 import MyPage from "./pages/MyPage";
+import ProductCreatePage from "./pages/ProductCreatePage";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -26,9 +28,13 @@ function ProtectedRoute({ loginUser, children}) {
   return children;
 }
 
-function App() {
+function AppContent() {
   const [loginUser, setLoginUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
+
+  const location = useLocation();
+
+  const isHomePage = location.pathname === "/";
 
   const fetchLoginUser = async() => {
     
@@ -91,52 +97,59 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
       <div className="app-container">
-        <nav className="navbar">
-          <Link to="/">상품 목록</Link>
+        {!isHomePage && (
+          <nav className="navbar">
+            <Link to="/">홈</Link>
+            <Link to="/products">상품 목록</Link>
 
-          {loginUser ? (
-            <>
-              <span className="navbar-user">
-                {loginUser.name}님 로그인 중
-              </span>
+            {loginUser ? (
+              <>
+                <span className="navbar-user">
+                  {loginUser.name}님 로그인 중
+                </span>
 
-              <Link to="/mypage">마이페이지</Link>
-              <Link to="/wishlist">내 찜 목록</Link>
-              <Link to="/trades/sent">보낸 거래 요청</Link>
-              <Link to="/trades/received">받은 거래 요청</Link>
+                <Link to="/mypage">마이페이지</Link>
+                <Link to="/wishlist">내 찜 목록</Link>
+                <Link to="/trades/sent">보낸 거래 요청</Link>
+                <Link to="/trades/received">받은 거래 요청</Link>
 
-              <button
-                type="button"
-                className="secondary"
-                onClick={handleLogout}
-              >
-                로그아웃
-              </button>
-            </>
-          ) : (
-            <>
-              <span className="navbar-user">
-                로그인되지 않았습니다.
-              </span>
-
-              <Link to="/login">
-                <button type="button">로그인</button>
-              </Link>
-
-              <Link to="/signup">
-                <button type="button" className="secondary">
-                  회원가입
+                <button
+                  type="button"
+                  className="secondary"
+                  onClick={handleLogout}
+                >
+                  로그아웃
                 </button>
-              </Link>
-            </>
-          )}
-        </nav>
+              </>
+            ) : (
+              <>
+                <span className="navbar-user">
+                  로그인되지 않았습니다.
+                </span>
+
+                <Link to="/login">
+                  <button type="button">로그인</button>
+                </Link>
+
+                <Link to="/signup">
+                  <button type="button" className="secondary">
+                    회원가입
+                  </button>
+                </Link>
+              </>
+            )}
+          </nav>
+        )}
 
         <Routes>
           <Route
             path="/"
+            element={<HomePage loginUser={loginUser} />}
+          />
+
+          <Route
+            path="/products"
             element={<ProductListPage loginUser={loginUser} />}
           />
 
@@ -149,12 +162,12 @@ function App() {
             path="/products/edit/:id"
             element={<ProductEditPage loginUser={loginUser} />}
           />
-
+        
           <Route
             path="/wishlist"
             element={
               <ProtectedRoute loginUser={loginUser}>
-                <WishlistPage loginUser={loginUser} />
+                <WishlistPage loginUser={loginUser}/>
               </ProtectedRoute>
             }
           />
@@ -204,8 +217,25 @@ function App() {
             path="/signup"
             element={<SignupPage />}
           />
+
+          <Route
+            path="/products/new"
+            element={
+              <ProtectedRoute loginUser={loginUser}>
+                <ProductCreatePage loginUser={loginUser} />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </div>
+  );
+}
+
+function App() {
+
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 }

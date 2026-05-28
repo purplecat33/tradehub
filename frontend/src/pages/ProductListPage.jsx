@@ -10,14 +10,6 @@ function ProductListPage({loginUser}) {
     const [statusFilter, setStatusFilter] = useState("전체");
     const [loading, setLoading] = useState(false);
     const [sortType, setSortType] = useState("latest");
-    const [imageFile, setImageFile] = useState(null);
-
-    const [form, setForm] = useState({
-        title: "",
-        price: "",
-        description: "",
-        productCondition: "GOOD",
-    });
 
     const getStatusText = (status) => {
         
@@ -126,15 +118,6 @@ function ProductListPage({loginUser}) {
         searchProducts();
     }, [keyword, statusFilter, sortType]);
 
-    const handleChange = (e) => {
-        const {name, value} = e.target;
-
-        setForm({
-            ...form,
-            [name]: value,
-        });
-    };
-
     const handleKeywordChange = (e) => {
         setKeyword(e.target.value);
     };
@@ -145,66 +128,6 @@ function ProductListPage({loginUser}) {
 
     const handleSortChange = (e) => {
         setSortType(e.target.value);
-    };
-
-    const handleFileChange = (e) => {
-        setImageFile(e.target.files[0]);
-    }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        if (!loginUser) {
-            alert("로그인 후 이용해주세요");
-            
-            return;
-        }
-
-        try {
-
-            const formData = new FormData();
-            formData.append("title", form.title);
-            formData.append("price", Number(form.price));
-            formData.append("description", form.description);
-            formData.append("productCondition", form.productCondition);
-            formData.append("userId", loginUser.id);
-
-            if (imageFile) {
-                formData.append("image", imageFile);
-            }
-
-            await axios.post(`${BASE_URL}/api/products`, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-                withCredentials: true,
-            });
-
-            alert("상품 등록 성공");
-
-            setForm({
-                title:"",
-                price:"",
-                description:"",
-                productCondition:"GOOD",
-            });
-
-            setImageFile(null);
-            searchProducts();
-
-        } catch (error) {
-            console.error("상품 등록 실패", error);
-            
-            if (error.response) {
-                alert("상품 등록에 실패했습니다. 입력값을 확인해주세요.");
-
-            } else if (error.request) {
-                alert("서버와 연결되지 않았습니다.");
-
-            } else {
-                alert("요청 오류가 발생했습니다.");
-            }
-        }
     };
 
     const deleteProduct = async (id) => {
@@ -253,167 +176,119 @@ function ProductListPage({loginUser}) {
 
     return (
         <div className="page-container">
-            <h1 className="page-title">중고거래 상품 관리</h1>
-
-            <div className="form-card">
-                <h2 className="section-title">상품 등록</h2>
-            
-
-                <form onSubmit={handleSubmit} className="product-form">
-                    <input
-                        type = "text"
-                        name = "title"
-                        placeholder = "상품명"
-                        value = {form.title}
-                        onChange = {handleChange}
-                    />
-
-                
-                    <input
-                        type = "number"
-                        name = "price"
-                        placeholder = "가격"
-                        value = {form.price}
-                        onChange = {handleChange}
-                    />
-
-                    <textarea
-                        name = "description"
-                        placeholder = "상품 설명"
-                        value = {form.description}
-                        onChange = {handleChange}
-                    />
-
-                    <div className="form-group">
-                        <label>상품 상태</label>
-                        <select
-                            name="productCondition"
-                            value={form.productCondition}
-                            onChange={handleChange}
-                        >
-                            <option value="GOOD">좋음</option>
-                            <option value="NORMAL">보통</option>
-                            <option value="BAD">나쁨</option>
-                        </select>
-                    </div>
-
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFileChange}
-                    />
-
-                    <div className="form-actions">
-                        <button type="submit">상품 등록</button>
-                    </div>
-                </form>
+            <div className="product-page-hero">
+                <div className="product-page-hero-content">
+                    <p className="product-page-subtitle">TradeHub Market</p>
+                    <h1>상품 목록</h1>
+                    <p>
+                        등록된 상품을 검색하고 마음에 드는 상품의 상세 정보를 확인해보세요.
+                    </p>
+                </div>
             </div>
-        
-        <h2 className="section-title">상품 목록</h2>
 
-        <div className="filter-bar">
-            <input
-                type="text"
-                placeholder="상품명을 입력하세요"
-                value={keyword}
-                onChange={handleKeywordChange}
-            />
+            <section className="product-list-section product-list-only-section">
+                <div className="filter-bar">
+                    <input
+                        type="text"
+                        placeholder="상품명을 입력하세요"
+                        value={keyword}
+                        onChange={handleKeywordChange}
+                    />
 
-            <select
-                value={statusFilter}
-                onChange={handleStatusFilterChange}
-            >
-                <option value="전체">전체</option>
-                <option value="AVAILABLE">판매중</option>
-                <option value="RESERVED">거래중</option>
-                <option value="SOLD">판매완료</option>
-            </select>
+                    <select
+                        value={statusFilter}
+                        onChange={handleStatusFilterChange}
+                    >
+                        <option value="전체">전체</option>
+                        <option value="AVAILABLE">판매중</option>
+                        <option value="RESERVED">거래중</option>
+                        <option value="SOLD">판매완료</option>
+                    </select>
 
-            <select
-                value={sortType}
-                onChange={handleSortChange}
-            >
-                <option value="latest">최신순</option>
-                <option value="priceAsc">가격 낮은 순</option>
-                <option value="priceDesc">가격 높은 순</option>
-            </select>
+                    <select
+                        value={sortType}
+                        onChange={handleSortChange}
+                    >
+                        <option value="latest">최신순</option>
+                        <option value="priceAsc">가격 낮은 순</option>
+                        <option value="priceDesc">가격 높은 순</option>
+                    </select>
 
-            <button
-                type="button"
-                className="secondary"
-                onClick={() => {
-                    setKeyword("");
-                    setStatusFilter("전체");
-                    setSortType("latest");
-                }}
+                    <button
+                        type="button"
+                        className="secondary"
+                        onClick={() => {
+                            setKeyword("");
+                            setStatusFilter("전체");
+                            setSortType("latest");
+                        }}
+                    >
+                        초기화
+                    </button>
+                </div>
 
-            >
-                초기화
-            </button>
-        </div>
+                {loading ? (
+                    <p className="empty-message">상품 목록을 불러오는 중입니다.</p>
+                ) : products.length === 0 ? (
+                    <p className="empty-message">검색 결과가 없습니다.</p>
+                ) : (
+                    <div className="product-grid">
+                        {products.map((product) => (
+                            <div className="product-card" key={product.id}>
+                                <img
+                                    className="product-image"
+                                    src={
+                                        product.imageUrl
+                                            ? `${BASE_URL}/images/${product.imageUrl}`
+                                            : "/no-image.png"
+                                    }
+                                    alt={product.title}
+                                />
 
-        {loading ? (
-            <p className="empty-message">상품 목록을 불러오는 중입니다.</p>
-        ) : products.length === 0 ? (
-            <p className="empty-message">검색 결과가 없습니다.</p>
-        ) : (
-            <div className="product-grid">
-                {products.map((product) => (
-                    <div className="product-card" key={product.id}>
-                        <img
-                            className="product-image"
-                            src={
-                                product.imageUrl
-                                    ? `${BASE_URL}/images/${product.imageUrl}`
-                                    : "/no-image.png"
-                            }
+                                <h3 className="product-title">
+                                    <Link to={`/products/${product.id}`}>
+                                        {product.title}
+                                    </Link>
+                                </h3>
 
-                            alt = {product.title}
-                        />
+                                <p className="product-price">
+                                    {product.price.toLocaleString()}원
+                                </p>
 
-                        <h3 className="product-title">
-                            <Link to={`/products/${product.id}`}>
-                                {product.title}
-                            </Link>
-                        </h3>
+                                <span className={`status-badge ${product.status.toLowerCase()}`}>
+                                    {getStatusText(product.status)}
+                                </span>
 
-                        <p className="product-price">
-                            {product.price.toLocaleString()}원
-                        </p>
+                                <p className="product-condition">
+                                    상품 상태 : {getConditionText(product.productCondition)}
+                                </p>
 
-                        <span className={`status-badge ${product.status.toLowerCase()}`}>
-                            {getStatusText(product.status)}
-                        </span>
+                                <p className="product-description">
+                                    {product.description}
+                                </p>
 
-                        <p className="product-condition">
-                            상품 상태 : {getConditionText(product.productCondition)}
-                        </p>
+                                {loginUser && product.user && loginUser.id === product.user.id && (
+                                    <div className="card-actions">
+                                        <Link to={`/products/edit/${product.id}`}>
+                                            <button type="button" className="secondary">
+                                                수정
+                                            </button>
+                                        </Link>
 
-                        <p className="product-description">
-                            {product.description}
-                        </p>
-
-                        {loginUser && product.user && loginUser.id === product.user.id && (
-                            <div className="card-actions">
-                                <Link to={`/products/edit/${product.id}`}>
-                                    <button type="button" className="secondary">
-                                        수정
-                                    </button>
-                                </Link>
-
-                                <button
-                                    type="button"
-                                    className="danger"
-                                    onClick={() => deleteProduct(product.id)}
-                                >
-                                    삭제
-                                </button>
+                                        <button
+                                            type="button"
+                                            className="danger"
+                                            onClick={() => deleteProduct(product.id)}
+                                        >
+                                            삭제
+                                        </button>
+                                    </div>
+                                )}
                             </div>
-                        )}
+                        ))}
                     </div>
-                ))}
-            </div>
-        )}
+                )}
+            </section>
         </div>
     );
 }
