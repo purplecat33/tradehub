@@ -460,21 +460,28 @@ textarea {
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.04);
 }
 
-.auth-page {
-    max-width: 420px;
-    margin: 60px auto;
-    padding: 32px;
-    background-color: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+.auth-background {
+    min-height: calc(100vh - 70px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 70px 20px;
+
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.58)),
+        url("/template/assets/img/header-bg.jpg");
+
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
 }
 
 .auth-page h2 {
-    margin-bottom: 24px;
+    margin: 0 0 28px;
     text-align: center;
-    font-size: 24px;
-    color: #111827;
+    font-size: 28px;
+    font-weight: 900;
+    color: #ffffff;
 }
 
 .auth-form {
@@ -484,64 +491,70 @@ textarea {
 }
 
 .auth-form input {
-    padding: 12px 14px;
-    border: 1px solid #d1d5db;
-    border-radius: 10px;
+    width: 100%;
+    height: 48px;
+    padding: 0 15px;
+    border: 1px solid #d9dce3;
+    border-radius: 12px;
     font-size: 15px;
+    background-color: white;
     outline: none;
 }
 
 .auth-form input:focus {
-    border-color: #2563eb;
+    border-color: #ffd43b;
+    box-shadow: 0 0 0 3px rgba(255, 212, 59, 0.25);
 }
 
 .auth-form button {
+    width: 100%;
+    height: 48px;
     margin-top: 8px;
-    padding: 12px 14px;
     border: none;
-    border-radius: 10px;
-    background-color: #2563eb;
-    color: white;
+    border-radius: 12px;
+    background-color: #ffd43b;
+    color: #222;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 900;
     cursor: pointer;
 }
 
 .auth-form button:hover {
-    background-color: #1d4ed8;
-}
-
-.auth-link {
-    margin-top: 18px;
-    text-align: center;
-    font-size: 14px;
-    color: #6b7280;
-}
-
-.auth-link a {
-    color: #2563eb;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.auth-link a:hover {
-    text-decoration: underline;
+    background-color: #fab005;
 }
 
 .google-login-button {
     margin-top: 12px;
     width: 100%;
-    padding: 12px;
+    height: 48px;
     border: none;
-    border-radius: 8px;
-    background-color: #4b2dbd;
+    border-radius: 12px;
+    background-color: #222;
     color: white;
-    font-weight: bold;
+    font-size: 15px;
+    font-weight: 900;
     cursor: pointer;
 }
 
 .google-login-button:hover {
-    background-color: #3b239a;
+    background-color: #000;
+}
+
+.auth-link {
+    margin-top: 22px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+.auth-link a {
+    color: #f59f00;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
 }
 
 .mypage-container {

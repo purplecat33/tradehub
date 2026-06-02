@@ -65,40 +65,42 @@ function LoginPage({onLoginSuccess}) {
     };
 
     return (
-        <div className="auth-page">
-            <h2>로그인</h2>
+        <div className="auth-background">
+            <div className="auth-page">
+                <h2>로그인</h2>
 
-            <form onSubmit={handleLogin} className="auth-form">
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="아이디"
-                    value={form.username}
-                    onChange={handleChange}
-                />
+                <form onSubmit={handleLogin} className="auth-form">
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="아이디"
+                        value={form.username}
+                        onChange={handleChange}
+                    />
 
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="비밀번호"
-                    value={form.password}
-                    onChange={handleChange}
-                />
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="비밀번호"
+                        value={form.password}
+                        onChange={handleChange}
+                    />
 
-                <button type="submit">로그인</button>
-            </form>
+                    <button type="submit">로그인</button>
+                </form>
 
-            <button
-                type="button"
-                className="google-login-button"
-                onClick={handleGoogleLogin}
-            >
-                구글로 로그인
-            </button>
+                <button
+                    type="button"
+                    className="google-login-button"
+                    onClick={handleGoogleLogin}
+                >
+                    구글로 로그인
+                </button>
 
-            <p className="auth-link">
-                계정이 없으신가요? <Link to="/signup">회원가입</Link>
-            </p>
+                <p className="auth-link">
+                    계정이 없으신가요? <Link to="/signup">회원가입</Link>
+                </p>
+            </div>
         </div>
     );
 }
