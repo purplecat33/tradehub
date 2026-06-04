@@ -211,6 +211,12 @@ function ReceivedTradePage({ loginUser }) {
 
         return (
             <div className="page-container">
+                <div className="product-page-hero">
+                    <div className="product-page-hero-content">
+                        <h1>받은 거래 요청</h1>
+                    </div>
+                </div>
+
                 <p className="empty-message">로그인 후 이용해주세요.</p>
             </div>
         );
@@ -218,63 +224,75 @@ function ReceivedTradePage({ loginUser }) {
 
     return (
         <div className="page-container">
-            <h1 className="page-title">내가 받은 거래 요청</h1>
+            <div className="product-page-hero">
+                <div className="product-page-hero-content">
+                    <h1>받은 거래 요청</h1>
+                </div>
+            </div>
 
-            {trades.length === 0 ? (
-                <p className="empty-message">받은 거래 요청이 없습니다.</p>
-            ) : (
-                trades.map((trade) => (
-                    <div className="trade-card" key={trade.id}>
-                        <img
-                            src={getProductImageUrl(trade.product)}
-                            alt={trade.product.title}
-                            className="trade-product-image"
-                        />
+            <section className="trade-section">
+                {trades.length === 0 ? (
+                    <p className="empty-message">받은 거래 요청이 없습니다.</p>
+                ) : (
+                    <div className="trade-list">
+                        {trades.map((trade) => (
+                            <div className="trade-card trade-card-row" key={trade.id}>
+                                <img
+                                    src={getProductImageUrl(trade.product)}
+                                    alt={trade.product.title}
+                                    className="trade-product-image"
+                                />
 
-                        <h2>{trade.product.title}</h2>
+                                <div className="trade-info">
+                                    <h2>{trade.product.title}</h2>
 
-                        <p className="product-price">
-                            {trade.product.price.toLocaleString()}원
-                        </p>
+                                    <p className="product-price">
+                                        {trade.product.price.toLocaleString()}원
+                                    </p>
 
-                        <p>구매자: {trade.buyer.username}</p>
+                                    <p className="trade-meta">
+                                        구매자: {trade.buyer.username}
+                                    </p>
 
-                        <span className={`status-badge ${getTradeStatusClass(trade.status)}`}>
-                            {getTradeStatusText(trade.status)}
-                        </span>
+                                    <span className={`status-badge ${getTradeStatusClass(trade.status)}`}>
+                                        {getTradeStatusText(trade.status)}
+                                    </span>
 
-                        {trade.status === "REQUESTED" && (
-                            <div className="trade-actions">
-                                <button
-                                    type="button"
-                                    onClick={() => handleAcceptTrade(trade.id)}
-                                >
-                                    수락
-                                </button>
+                                    {trade.status === "REQUESTED" && (
+                                        <div className="trade-actions">
+                                            <button
+                                                type="button"
+                                                onClick={() => handleAcceptTrade(trade.id)}
+                                            >
+                                                수락
+                                            </button>
 
-                                <button
-                                    type="button"
-                                    className="danger"
-                                    onClick={() => handleRejectTrade(trade.id)}
-                                >
-                                    거절
-                                </button>
+                                            <button
+                                                type="button"
+                                                className="danger"
+                                                onClick={() => handleRejectTrade(trade.id)}
+                                            >
+                                                거절
+                                            </button>
+                                        </div>
+                                    )}
+
+                                    {trade.status === "ACCEPTED" && (
+                                        <div className="trade-actions">
+                                            <button
+                                                type="button"
+                                                onClick={() => handleCompleteTrade(trade.id)}
+                                            >
+                                                거래 완료
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-                        )}
-
-                        {trade.status === "ACCEPTED" && (
-                            <div className="trade-actions">
-                                <button
-                                    type="button"
-                                    onClick={() => handleCompleteTrade(trade.id)}
-                                >
-                                    거래 완료
-                                </button>
-                            </div>
-                        )}
+                        ))}
                     </div>
-                ))
-            )}
+                )}
+            </section>
         </div>
     );
 }
