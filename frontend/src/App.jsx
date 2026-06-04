@@ -109,6 +109,7 @@ function AppContent() {
                   {loginUser.name}님 로그인 중
                 </span>
 
+                <Link to="/products/new">상품 등록</Link>
                 <Link to="/mypage">마이페이지</Link>
                 <Link to="/wishlist">내 찜 목록</Link>
                 <Link to="/trades/sent">보낸 거래 요청</Link>

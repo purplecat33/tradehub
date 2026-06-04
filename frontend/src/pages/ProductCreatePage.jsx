@@ -78,11 +78,10 @@ function ProductCreatePage({ loginUser }) {
 
     return (
         <div className="page-container">
-            <div className="product-page-hero-content">
-                <h1 className="page-title">상품 등록</h1>
-                <p className="page-description">
-                    판매할 상품의 정보와 이미지를 입력해주세요.
-                </p>
+            <div className="product-page-hero">
+                <div className="product-page-hero-content">
+                    <h1>상품 등록</h1>
+                </div>
             </div>
 
             <section className="product-register-section">
@@ -127,7 +126,7 @@ function ProductCreatePage({ loginUser }) {
                         <input
                             type="file"
                             accept="image/*"
-                            onChange={handleChange}
+                            onChange={handleFileChange}
                         />
 
                         <div className="form-actions">

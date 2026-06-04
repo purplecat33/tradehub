@@ -204,57 +204,61 @@ function MyPage({loginUser, setLoginUser}) {
     }
 
     return (
-        <div className="mypage-container">
-            <h2>마이페이지</h2>
+        <div className="page-container">
+            <div className="product-page-hero">
+                <div className="product-page-hero-content">
+                    <h1>마이페이지</h1>
+                </div>
+            </div>
+            
+            <div className="mypage-container">
+                <div className="mypage-card">
+                    {!editMode ? (
+                        <>
+                            <div className="mypage-info-row">
+                                <strong>아이디</strong>
+                                <span>{user.username || "-"}</span>
+                            </div>
 
-            <div className="mypage-card">
-                {!editMode ? (
-                    <>
-                        <div className="mypage-info-row">
-                            <strong>아이디</strong>
-                            <span>{user.username || "-"}</span>
-                        </div>
+                            <div className="mypage-info-row">
+                                <strong>이름</strong>
+                                <span>{user.name || "-"}</span>
+                            </div>
 
-                        <div className="mypage-info-row">
-                            <strong>이름</strong>
-                            <span>{user.name || "-"}</span>
-                        </div>
+                            <div className="mypage-info-row">
+                                <strong>이메일</strong>
+                                <span>{user.email || "-"}</span>
+                            </div>
 
-                        <div className="mypage-info-row">
-                            <strong>이메일</strong>
-                            <span>{user.email || "-"}</span>
-                        </div>
+                            <div className="mypage-info-row">
+                                <strong>로그인 방식</strong>
+                                <span>{getProviderText(user.provider)}</span>
+                            </div>
 
-                        <div className="mypage-info-row">
-                            <strong>로그인 방식</strong>
-                            <span>{getProviderText(user.provider)}</span>
-                        </div>
+                            <div className="mypage-info-row">
+                                <strong>가입일</strong>
+                                <span>{formatDate(user.createdAt)}</span>
+                            </div>
 
-                        <div className="mypage-info-row">
-                            <strong>가입일</strong>
-                            <span>{formatDate(user.createdAt)}</span>
-                        </div>
-
-                        <div className="button-area">
-                            <button
-                                type="button"
-                                className="primary-button"
-                                onClick={handleEditClick}
-                            >
-                                수정
-                            </button>
-                            
-                            <button
-                                type="button"
-                                className="danger"
-                                onClick={handleDeleteAccount}
-                            >
-                                회원탈퇴
-                            </button>
-                        </div>
-                    </>
-                ) : (
-                    <>
+                            <div className="button-area">
+                                <button
+                                    type="button"
+                                    className="primary-button"
+                                    onClick={handleEditClick}
+                                >
+                                    수정
+                                </button>
+                                
+                                <button
+                                    type="button"
+                                    className="danger"
+                                    onClick={handleDeleteAccount}
+                                >
+                                    회원탈퇴
+                                </button>
+                            </div>
+                        </>
+                    ) : (
                         <form onSubmit={handleUpdateUser} className="mypage-edit-form">
                             <div className="mypage-info-row">
                                 <strong>아이디</strong>
@@ -303,13 +307,13 @@ function MyPage({loginUser, setLoginUser}) {
                                 </button>
                             </div>
                         </form>
-                    </>
-                )}
+                    )}
+                </div>
+                <Link to="/" className="mypage-back-link">
+                    상품 목록으로 이동
+                </Link>
             </div>
 
-            <br />
-
-            <Link to="/" className="mypage-back-link">상품 목록으로 이동</Link>
         </div>
     );
 }

@@ -316,18 +316,18 @@ textarea {
         linear-gradient(rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.58)),
         url("/template/assets/img/header-bg.jpg");
 
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
 
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
-        overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+    overflow: hidden;
 }
 
 .product-page-hero-content {
@@ -559,43 +559,96 @@ textarea {
 
 .mypage-container {
     width: 100%;
-    min-height:calc(100vh - 80px);
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 30px;
     box-sizing: border-box;
-}
-
-.mypage-container h2 {
-    margin-bottom: 20px;
-    font-size: 28px;
 }
 
 .mypage-card {
     width: 100%;
-    max-width: 520px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 28px;
-    background-color: #fff;
+    max-width: 720px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 22px;
+    padding: 40px 36px;
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.08);
     box-sizing: border-box;
     text-align: center;
+}
+
+.mypage-info-row {
+    padding: 14px 0;
+    border-bottom: 1px solid #f1f3f5;
+}
+
+.mypage-info-row:last-of-type {
+    border-bottom: none;
 }
 
 .mypage-info-row strong {
     display: block;
     margin-bottom: 6px;
-    font-size: 16px;
+    font-size: 14px;
+    color: #777;
 }
 
 .mypage-info-row span {
     display: block;
-    font-size: 16px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #222;
 }
 
 .mypage-edit-form {
     width: 100%;
+}
+
+.button-area {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.primary-button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 10px;
+    background-color: #222;
+    color: white;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.primary-button:hover {
+    background-color: #000;
+}
+
+.secondary-button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 10px;
+    background-color: #f1f3f5;
+    color: #333;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.secondary-button:hover {
+    background-color: #e9ecef;
+}
+
+.mypage-back-link {
+    display: inline-block;
+    margin-top: 28px;
+    color: #666;
+    font-weight: 700;
+}
+
+.mypage-back-link:hover {
+    color: #f59f00;
 }
 
 .form-group {
@@ -621,35 +674,6 @@ textarea {
     border: 1px solid #ccc;
     border-radius: 6px;
     box-sizing: border-box;
-}
-
-.button-area {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.primary-button {
-    padding: 10px 18px;
-    border: none;
-    border-radius: 6px;
-    background-color: #222;
-    color: white;
-    cursor: pointer;
-}
-
-.secondary-button {
-    padding: 10px 18px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background-color: #f1f1f1;
-    cursor: pointer;
-}
-
-.mypage-back-link {
-    margin-top: 24px;
-    text-decoration: none;
-    color: #333;
 }
 
 .page-header {
