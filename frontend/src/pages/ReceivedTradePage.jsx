@@ -246,7 +246,7 @@ function ReceivedTradePage({ loginUser }) {
                                 <div className="trade-info">
                                     <h2>{trade.product.title}</h2>
 
-                                    <p className="product-price">
+                                    <p className="trade-price">
                                         {trade.product.price.toLocaleString()}원
                                     </p>
 
